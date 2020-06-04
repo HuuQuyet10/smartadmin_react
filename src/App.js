@@ -7,16 +7,16 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 // import antd.design
 import 'antd/dist/antd.css';
 
-import Menu from "./Menu";
-import Header from "./Header";
-import Footer from "./Footer";
-import Shortcuts from "./Shortcuts";
-import QuickMenu from "./QuickMenu";
-import Messenger from "./Messenger";
-import PageSettings from "./PageSettings";
+import Menu from "./components/Menu";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Shortcuts from "./components/Shortcuts";
+import QuickMenu from "./components/QuickMenu";
+import Messenger from "./components/Messenger";
+import PageSettings from "./components/PageSettings";
 
 import IntelAnalyticsDashboard from "./components/IntelAnalyticsDashboard";
-import IntelMarketingDashboard from "./components/IntelMarketingDashboard";
+// import IntelMarketingDashboard from "./components/IntelMarketingDashboard";
 import Blank from "./components/Blank";
 export default class App extends Component {
 
@@ -47,7 +47,7 @@ export default class App extends Component {
               <Header/>
               <main id="js-page-content" role="main" className="page-content">
                 <Route path="/intel_analytics_dashboard" component={IntelAnalyticsDashboard}/>
-                <Route path="/intel_marketing_dashboard" component={IntelMarketingDashboard}/>
+                {/* <Route path="/intel_marketing_dashboard" component={IntelMarketingDashboard}/> */}
                 <Route path="/blank" component={Blank}/>
               </main>
               <div className="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
