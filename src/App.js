@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 // import  $, {Popper, jQuery, Waves, classHolder, bootbox, i18n } from "jquery";
 // import { throttle, debounce } from 'throttle-debounce';
 
+
+// import antd.design
+import 'antd/dist/antd.css';
+
 import Menu from "./Menu";
 import Header from "./Header";
 import Footer from "./Footer";
