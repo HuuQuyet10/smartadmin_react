@@ -30,13 +30,6 @@ export default class App extends Component {
   componentDidMount = async () => {
     await this.getAndCreateJS('js/vendors.bundle.js');
     await this.getAndCreateJS('js/app.bundle.js');
-
-    // await this.getAndCreateJS('js/dependency/moment/moment.js');
-    // await this.getAndCreateJS('js/miscellaneous/fullcalendar/fullcalendar.bundle.js');
-    // await this.getAndCreateJS('js/statistics/sparkline/sparkline.bundle.js');
-    // await this.getAndCreateJS('js/statistics/easypiechart/easypiechart.bundle.js');
-    // await this.getAndCreateJS('js/statistics/flot/flot.bundle.js');
-    // await this.getAndCreateJS('js/miscellaneous/jqvmap/jqvmap.bundle.js');
   }
 
   render() {

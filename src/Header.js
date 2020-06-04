@@ -37,14 +37,7 @@ export default class Header extends Component {
                         <i className="ni ni-menu"/>
                     </a>
                 </div>
-                <div className="search">
-                    <form className="app-forms hidden-xs-down" role="search" action="page_search.html" autoComplete="off">
-                        <input type="text" id="search-field" placeholder="Search for anything" className="form-control" tabIndex={1}/>
-                        <a href="/" className="btn-danger btn-search-close js-waves-off d-none" data-action="toggle" data-class="mobile-search-on">
-                            <i className="fal fa-times"/>
-                        </a>
-                    </form>
-                </div>
+                
                 <div className="ml-auto d-flex">
                     {/* activate app search icon (mobile) */}
                     <div className="hidden-sm-up">
