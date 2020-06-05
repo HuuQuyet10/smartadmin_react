@@ -1,0 +1,28 @@
+.custome-header{
+    .title-box{
+        justify-content: center;
+    }
+    .addition-box{
+        display: flex;
+        justify-content: center;
+        color: black;
+        text-align: center;
+        .style-title-box{
+            font-size: 10px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+    }
+}
+.col-action{
+    .style-textfil{
+        font-size: 11px;
+    }
+    justify-content: center;
+    .style-checkbox{
+        display: flex;
+        justify-content: center;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+}

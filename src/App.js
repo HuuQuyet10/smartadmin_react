@@ -1,66 +1,52 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-// import  $, {Popper, jQuery, Waves, classHolder, bootbox, i18n } from "jquery";
-// import { throttle, debounce } from 'throttle-debounce';
+import { persistStore, persistReducer } from "redux-persist";
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import createEncryptor from "redux-persist-transform-encrypt";
+import reducers from "@redux-store/reducers";
+import storage from "redux-persist/lib/storage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { PersistGate } from "redux-persist/integration/react";
+import "@styles/bootstrap-override.scss";
+import "@styles/app.scss";
+import stringUtils from "mainam-react-native-string-utils";
+import Main from "./Main";
+import { Provider } from 'react-redux';
 
 
-// import antd.design
-import 'antd/dist/antd.css';
+const encryptor = createEncryptor({
+  secretKey: "private-encrypt-key",
+  onError: function (error) {
+    // Handle the error.
+  },
+});
 
-import Menu from "./components/Menu";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Shortcuts from "./components/Shortcuts";
-import QuickMenu from "./components/QuickMenu";
-import Messenger from "./components/Messenger";
-import PageSettings from "./components/PageSettings";
+const persistConfig = {
+  key: "root-product",
+  storage,
+  transforms: [encryptor],
+};
 
-import IntelAnalyticsDashboard from "./components/IntelAnalyticsDashboard";
-// import IntelMarketingDashboard from "./components/IntelMarketingDashboard";
-import Blank from "./components/Blank";
-export default class App extends Component {
+const store = createStore(
+  persistReducer(persistConfig, reducers),
+  {},
+  compose(applyMiddleware(thunk))
+);
+const persistor = persistStore(store);
 
-  getAndCreateJS = async src => {
-    return  fetch(src)
-      .then(res => res.text())
-      .then(res => {
-        var script = document.createElement("script");
-        script.innerHTML = res;
-        script.dataset.src = src;
-        document.body.appendChild(script);
-      });
-  }
-
-  componentDidMount = async () => {
-    await this.getAndCreateJS('js/vendors.bundle.js');
-    await this.getAndCreateJS('js/app.bundle.js');
-  }
-
-  render() {
-    return (
-      <div ref={el => this.el = el}>
-      <Router>
-        <div className="page-wrapper">
-          <div className="page-inner">
-            <Menu/>
-            <div className="page-content-wrapper">
-              <Header/>
-              <main id="js-page-content" role="main" className="page-content">
-                <Route path="/intel_analytics_dashboard" component={IntelAnalyticsDashboard}/>
-                {/* <Route path="/intel_marketing_dashboard" component={IntelMarketingDashboard}/> */}
-                <Route path="/blank" component={Blank}/>
-              </main>
-              <div className="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
-              <Footer/>
-              <Shortcuts></Shortcuts>
-            </div>
+const Kernel = () => (
+  <div>
+    <ToastContainer autoClose={3000} />
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <div className="app">
+          <div className="main-content">
+            <Main />
           </div>
         </div>
-        <QuickMenu/>
-        <Messenger/>
-        <PageSettings/>
-      </Router>
-      </div>
-    );
-  }
-}
+      </PersistGate>
+    </Provider>
+  </div>
+);
+export default Kernel;

@@ -1,0 +1,12 @@
+.width40{
+    width: 40%;
+    display: inline-block;
+}
+.title{
+    font-weight: 600;
+}
+.info-device{
+    > div{
+        padding: 5px 20px;
+    }
+}

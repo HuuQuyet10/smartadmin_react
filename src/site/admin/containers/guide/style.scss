@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.container-form {
+    font-family: Muli, "Source Sans Pro" !important;
+    font-size: 17px;
+    color: #000;
+    img {
+        height: 32px;
+        margin: 0px 10px;
+    }
+    ul {
+        padding: 0; 
+        li {
+            list-style-type: none;
+            padding-top: 12px;
+            p {
+                margin-bottom: 12px;
+                line-height: 2;
+            }
+            b {
+                margin-bottom: 12px;
+                // display: block;
+                text-decoration: underline;
+            }
+            span {
+                padding-top: 5px;
+                margin-bottom: 10px;
+                display: block;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+    }
+    .IcAction {
+        width: 32px;
+    }
+
+    .list-child {
+        padding-left: 17px !important;
+    }
+
+    .arrowIc {
+        margin-bottom: -5px;
+    }
+}
