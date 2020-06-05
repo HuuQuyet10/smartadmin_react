@@ -21,25 +21,14 @@
     color: #fff;
     font-weight: bold;
     .title-box {
-      background: #2c4897;
+      background: #208ccc;
       padding: 0 16px;
       min-height: 45px;
       display: flex;
       align-items: center;
-      position: relative;
-      justify-content: center;
-      &:after {
-        content: "";
-        display: block;
-        height: 73%;
-        width: 1px;
-        background: #fff;
-        position: absolute;
-        right: 0;
-      }
     }
     .addition-box {
-      background: #eaf2fd;
+      background-color: #ffffff;
       padding: 10px;
       min-height: 55px;
       .ant-select {
@@ -71,15 +60,6 @@
       }
     }
   }
-  .ant-table-body {
-    .ant-table-tbody {
-      .ant-table-row {
-        &:nth-child(2n) {
-          background: #eaf2fd;
-        }
-      }
-    }
-  }
   .button-column-action {
     width: 30px;
     height: 30px;
@@ -102,64 +82,18 @@
       margin: 2px;
       cursor: pointer;
     }
-    .btn-edit {
-      background: #2c4897;
-      border-color: #2c4897;
-    }
-    .btn-delete {
-      background: #d30126;
-      border-color: #d30126;
-    }
-    .btn-reset {
-      background: #4b37be;
-      border-color: #4b37be;
-    }
   }
   .ant-table-scroll table .ant-table-fixed-columns-in-body:not([colspan]) > * {
     visibility: initial;
   }
-  .ant-table-scroll {
-    overflow: hidden;
-    overflow-x: auto !important;
-    .ant-table-header {
-      overflow: initial !important;
-      margin-bottom: 0 !important;
-    }
-    .ant-table-body {
-      overflow: unset !important;
-      max-height: none !important;
-    }
-  }
-  .ant-table-fixed-right {
-    .ant-table-body-outer {
-      .ant-table-body-inner {
-        overflow: unset !important;
-        max-height: none !important;
-      }
-    }
-  }
   .ant-table-fixed-right {
     border-radius: inherit;
-    .ant-table-tbody {
-      .ant-table-row {
-        &:nth-child(2n) {
-          background: #eaf2fd;
-        }
-      }
-    }
-    .title-box {
-      &:after {
-        display: none;
-      }
-    }
   }
 }
 
 .panel-container {
   .custom-table {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    border-radius: 5px;
-    overflow: hidden;
+    margin-left: -16px !important;
+    margin-right: -16px !important;
   }
 }

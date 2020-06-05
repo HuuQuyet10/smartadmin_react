@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import Loadable from "react-loadable";
-import { Switch } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import RouterWithPaths from "@components/RouterWithPaths";
+import $ from "jquery";
 import {
   SideBar,
   Header,
@@ -20,220 +21,137 @@ function index(props) {
 
   const routers = [
     {
-      path: ["/admin", "/admin/dashboard"],
+      path: ["/admin/quan-ly-chuyen-gia"],
       component: Loadable({
-        loader: () => import("@admin/containers/dashboard"),
+        loader: () => import("@admin/containers/Quanlychuyengia"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-chuyen-gia/them-moi", "/admin/quan-ly-chuyen-gia/chinh-sua/:id"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlychuyengia/create"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-dao-tao"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlydaotao"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-dao-tao/them-moi", "/admin/quan-ly-dao-tao/chinh-sua/:id"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlydaotao/create"),
         loading: Loading,
       }),
     },
     {
-      path: ["/admin", "/admin/phanquyentaikhoan"],
+      path: ["/admin/quan-ly-hop-tac-co-so"],
       component: Loadable({
-        loader: () => import("@admin/containers/phanquyentaikhoan"),
+        loader: () => import("@admin/containers/Quanlyhoptacbn"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-hop-tac-co-so/them-moi", "/admin/quan-ly-hop-tac-co-so/chinh-sua/:id"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlyhoptacbn/create"),
         loading: Loading,
       }),
     },
     {
-      path: ["/admin/allocation"],
+      path: ["/admin/quan-ly-langding-page"],
       component: Loadable({
-        loader: () => import("@admin/containers/allocation"),
+        loader: () => import("@admin/containers/Quanlylangdingpage"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-langding-page/them-moi", "/admin/quan-ly-langding-page/chinh-sua/:id"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlylangdingpage/create"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-menu"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlymenu"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-page"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlypage"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-side"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlyside"),
+        loading: Loading,
+      })
+    },
+    {
+      path: ["/admin/quan-ly-side/side-page"],
+      component: Loadable({
+        loader: () => import("@admin/containers/Quanlyside/Sidepage"),
         loading: Loading,
       }),
     },
     {
-      path: ["/admin/device"],
+      path: ["/admin/quan-ly-side/side-place"],
       component: Loadable({
-        loader: () => import("@admin/containers/device"),
+        loader: () => import("@admin/containers/Quanlyside/Sideplace"),
         loading: Loading,
       }),
     },
     {
-      path: ["/admin/device/create", "/admin/device/edit/:id"],
+      path: ["/admin/quan-ly-side/side-item"],
       component: Loadable({
-        loader: () => import("@admin/containers/device/create"),
+        loader: () => import("@admin/containers/Quanlyside/Sideitem"),
         loading: Loading,
       }),
     },
     {
-      path: ["/admin/device/:id"],
+      path: ["/admin/quan-ly-tai-khoan"],
       component: Loadable({
-        loader: () => import("@admin/containers/device/detail"),
+        loader: () => import("@admin/containers/Quanlytaikhoan"),
         loading: Loading,
-      }),
+      })
     },
     {
-      path: ["/admin/device-type"],
+      path: ["/admin/quan-ly-tai-khoan/them-moi"],
       component: Loadable({
-        loader: () => import("@admin/containers/device-type"),
+        loader: () => import("@admin/containers/Quanlytaikhoan/create"),
         loading: Loading,
-      }),
+      })
     },
     {
-      path: ["/admin/manufacturer"],
+      path: ["/admin/quan-ly-tin-tuc"],
       component: Loadable({
-        loader: () => import("@admin/containers/manufacturer"),
+        loader: () => import("@admin/containers/Quanlytintuc"),
         loading: Loading,
-      }),
+      })
     },
     {
-      path: ["/admin/supplier"],
+      path: ["/admin/quan-ly-tin-tuc/them-moi"],
       component: Loadable({
-        loader: () => import("@admin/containers/company"),
+        loader: () => import("@admin/containers/Quanlytintuc/create"),
         loading: Loading,
-      }),
+      })
     },
-    {
-      path: ["/admin/supplier/create", "/admin/supplier/edit/:id"],
-      component: Loadable({
-        loader: () => import("@admin/containers/company/create"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/name-device"],
-      component: Loadable({
-        loader: () => import("@admin/containers/nameDevice"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/status"],
-      component: Loadable({
-        loader: () => import("@admin/containers/status"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/unit"],
-      component: Loadable({
-        loader: () => import("@admin/containers/unit"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/user"],
-      component: Loadable({
-        loader: () => import("@admin/containers/user"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/user/create", "/admin/user/:id"],
-      component: Loadable({
-        loader: () => import("@admin/containers/user/create"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/user-info"],
-      component: Loadable({
-        loader: () => import("@admin/containers/userinfo"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/hospital"],
-      component: Loadable({
-        loader: () => import("@admin/containers/hospital"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/hospital/create", "/admin/hospital/edit/:id"],
-      component: Loadable({
-        loader: () => import("@admin/containers/hospital/create"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/organization"],
-      component: Loadable({
-        loader: () => import("@admin/containers/organization"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/organization/create", "/admin/organization/edit/:id"],
-      component: Loadable({
-        loader: () => import("@admin/containers/organization/create"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/model"],
-      component: Loadable({
-        loader: () => import("@admin/containers/model"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/model/create", "/admin/model/edit/:id"],
-      component: Loadable({
-        loader: () => import("@admin/containers/model/create"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/company-device"],
-      component: Loadable({
-        loader: () => import("@admin/containers/companyDevice"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/company-device/create", "/admin/company-device/edit/:id"],
-      component: Loadable({
-        loader: () => import("@admin/containers/companyDevice/create"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/company-device/:id"],
-      component: Loadable({
-        loader: () => import("@admin/containers/companyDevice/detail"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/guide-company"],
-      component: Loadable({
-        loader: () => import("@admin/containers/guide"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/guide-hospital"],
-      component: Loadable({
-        loader: () => import("@admin/containers/guide/index2"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/guide-department"],
-      component: Loadable({
-        loader: () => import("@admin/containers/guide/guideDepartment"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/resource"],
-      component: Loadable({
-        loader: () => import("@admin/containers/resource"),
-        loading: Loading,
-      }),
-    },
-    {
-      path: ["/admin/user-type"],
-      component: Loadable({
-        loader: () => import("@admin/containers/user-type"),
-        loading: Loading,
-      }),
-    },
+    
   ];
-  if (!props.auth || !props.auth.id) {
-    props.history.push("/login");
-    return null;
-  }
+  // if (!props.auth || !props.auth.id) {
+  //   // props.history.push("/login");
+  //   return null;
+  // }
   return (
     <div>
       <div className="page-wrapper">

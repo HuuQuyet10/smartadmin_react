@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import statisticalProvider from "@data-access/statistical-provider";
-import { Select, Form } from "antd";
+import { Input, Select, Form } from "antd";
 import { Panel } from "@admin/components/admin";
+import cityProvider from "@data-access/city-provider";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import actionCity from "@actions/city";
-import { connect } from "react-redux";
-import images from "@src/resources/images";
+import snackbar from "@utils/snackbar-utils";
 import "./style.scss";
 am4core.useTheme(am4themes_animated);
 const { Option } = Select;
@@ -41,7 +40,7 @@ function index(props) {
   };
   useEffect(() => {
     loadData();
-    props.getCity();
+    getCity();
     return () => {
       if (chartRef.current) {
         chartRef.current.dispose();
@@ -51,26 +50,28 @@ function index(props) {
 
   const setColor = (chart) => {
     chart.colors.list = [
-      "#2F348F",
-      "#395FAC",
-      "#7987C3",
-      "#EC1F26",
-      "#141447",
-      "#00368C",
-      "#425799",
-      "#B20016",
-      "#212174",
-      "#0047B9",
-      "#5571C6",
-      "#DF001C",
-      "#251C65",
-      "#243CAC",
-      "#6168C3",
-      "#FF3E39",
-      "#222665",
-      "#2F66AC",
-      "#5F78C3",
-      "#EC3D54",
+      "#FF6384",
+      "#36A2EB",
+      "#FFCE56",
+      "#883997",
+      "#8bf6ff",
+      "#4ebaaa",
+      "#6effe8",
+      "#63a4ff",
+      "#ff5983",
+      "#fa5788",
+      "#39796b",
+      "#ffad42",
+      "#7b5e57",
+      "#ffff56",
+      "#484848",
+      "#6ab7ff",
+      "#845EC2",
+      "#D65DB1",
+      "#FF6F91",
+      "#FF9671",
+      "#FFC75F",
+      "#F9F871",
     ].map((item) => am4core.color(item));
   };
 
@@ -79,21 +80,13 @@ function index(props) {
       let chart = am4core.create("chartdiv", am4charts.PieChart3D);
       chart.hiddenState.properties.opacity = 0;
       chart.legend = new am4charts.Legend();
-      let arr1 = new Array(
-        { name: "Chưa nhập", value: data[0].chuaNhap },
-        { name: "Đã nhập", value: data[0].daNhap }
-      );
-      chart.data = arr1;
+      let arr1 = new Array({name: "Chưa nhập", value: data[0].chuaNhap}, {name: "Đã nhập", value: data[0].daNhap});
+      chart.data = arr1
       let series = chart.series.push(new am4charts.PieSeries3D());
       series.dataFields.value = "value";
       series.dataFields.category = "name";
-      series.hiddenState.properties.opacity = 1;
-      series.hiddenState.properties.endAngle = -90;
-      series.hiddenState.properties.startAngle = -90;
-      setColor(series);
     } else {
       let chart = am4core.create("chartdiv", am4charts.XYChart);
-      setColor(chart);
       chart.data = data;
       let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
       categoryAxis.dataFields.category = "tenTinh";
@@ -137,13 +130,22 @@ function index(props) {
       chart.legend = new am4charts.Legend();
     }
   };
+  const getCity = () => {
+    cityProvider
+      .search(0, 9999)
+      .then((s) => {
+        setState({
+          listCity: s.data,
+        });
+      })
+      .catch((e) => {});
+  };
   return (
     <Panel
       id={"effortmonth"}
       sortable={true}
       allowClose={false}
       title="Biểu đồ thống kê"
-      icon={images.icon.ic_dashboad}
     >
       <div className="chart-status row">
         <div className="detail-left col-md-2">
@@ -189,9 +191,10 @@ function index(props) {
                   .indexOf(input.toLowerCase()) >= 0
               }
             >
-              {props.listCitys &&
-                props.listCitys.length &&
-                props.listCitys.map((option, index) => {
+              <Option value="">Chọn tỉnh/ thành phố</Option>
+              {state.listCity &&
+                state.listCity.length &&
+                state.listCity.map((option, index) => {
                   return (
                     <Option key={index} value={option.id}>
                       {option.ten}
@@ -238,13 +241,4 @@ function index(props) {
   );
 }
 
-export default connect(
-  (state) => {
-    return {
-      listCitys: state.city.listCitys,
-    };
-  },
-  {
-    getCity: actionCity.getCity,
-  }
-)(index);
+export default index;

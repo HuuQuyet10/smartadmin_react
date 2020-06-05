@@ -54,7 +54,6 @@ function loadLocation(addresss = []) {
             values.forEach(item => {
                 obj[item.address] = item.location;
             });
-            // console.log(latlngs);
             dispatch(updateData({
                 latlngs: obj
             }))

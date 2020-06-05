@@ -28,11 +28,9 @@ function index(props) {
   return (
     <div id={props.id || stringUtils.guid()} className="panel" {...x}>
       <div className="panel-hdr color-success-600">
-        <img src={props.icon} className="icon-panel"/>
         <h2
           className="ui-sortable-handle"
           onDragOver={(e) => {
-            // console.log(e);
           }}
         >
           {props.title}

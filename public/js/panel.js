@@ -216,16 +216,16 @@
                 l.addClass("panel-sortable"),
                 (t =
                   !0 === p.o.closeButton && l.data("panel-close") === m
-                    ? '<a href="#" class="btn btn-panel hover-effect-dot js-panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Xóa" style="height: auto; background: no-repeat; width: auto; margin: 0 4px;"><img src="../../../img/icon/ic_delete.png"/></a>'
+                    ? '<a href="#" class="btn btn-panel hover-effect-dot js-panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Xóa"></a>'
                     : ""),
                 (e =
                   !0 === p.o.fullscreenButton &&
                   l.data("panel-fullscreen") === m
-                    ? '<a href="#" class="btn btn-panel hover-effect-dot js-panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Toàn màn hình" style="height: auto; background: no-repeat; width: auto; margin: 0 4px;"><img src="../../../img/icon/full_screen.png"/></a>'
+                    ? '<a href="#" class="btn btn-panel hover-effect-dot js-panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Toàn màn hình"></a>'
                     : ""),
                 (n =
                   !0 === p.o.collapseButton && l.data("panel-collapsed") === m
-                    ? '<a href="#" class="btn btn-panel hover-effect-dot js-panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Thu nhỏ / Mở rộng" style="height: auto; background: no-repeat; width: auto; margin: 0 4px;"><img src="../../../img/icon/ic_small.png"/></a>'
+                    ? '<a href="#" class="btn btn-panel hover-effect-dot js-panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Thu nhỏ / Mở rộng"></a>'
                     : ""),
                 (i =
                   !0 === p.o.lockedButton && l.data("panel-locked") === m
@@ -282,7 +282,7 @@
                 ? c.append(
                     '<div class="panel-toolbar">' +
                       `<a href="#" class="btn btn-toolbar-master" data-toggle="dropdown">
-                       <img src="../../../img/icon/ic_setting.png"/>
+                    <i class="fal fa-ellipsis-v"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-animated dropdown-menu-right p-0">
                     ${f}

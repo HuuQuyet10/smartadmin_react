@@ -1,72 +1,58 @@
-const prefix = "/api/may-tho/v1/";
+const prefix = "/";
 module.exports = {
   api: {
     user: {
-      login: prefix + "auth/login",
-      roles: prefix + "roles",
-      search: prefix + "users",
+      login: prefix + "user/login",
+      search: prefix + "user/get-all"
     },
-    device: {
-      search: prefix + "thiet-bi",
-      create: prefix + "thiet-bi",
-      report: prefix + "thiet-bi/thong-ke/excel/danh-sach",
-      get_all: prefix + "thiet-bi/thong-ke/danh-sach",
+    news: {
+      getAllnewsIndex: prefix + "news/get-all",
+      search: prefix + "news/get-all",
     },
-    nameDevice: {
-      search: prefix + "dm-thiet-bi",
+    training: {
+      Mdelete: prefix + "training/delete",
+      create: prefix + "training/create",
+      search: prefix + "training/search",
+      edit: prefix + "training/update",
+      getDetail: prefix + "training/get-all",
     },
-    unit: {
-      search: prefix + "dm-don-vi-tinh",
+    teamOfExperts: {
+      Mdelete: prefix + "team_of_experts/delete",
+      search: prefix + "team_of_experts/get-all",
+      getslider: prefix + "team_of_experts/search",
+      create: prefix + "team_of_experts/create",
+      edit: prefix + "team_of_experts/update"
     },
-    manufacturer: {
-      search: prefix + "dm-hang-san-xuat",
+    landing_page: {
+      create: prefix + "landing_page/create",
+      delete: prefix + "landing_page/delete",
+      update: prefix + "landing_page/update",
+      search: prefix + "landing_page/search",
+      getDetail: prefix + "landing_page/get-all",
+      getAllslider: prefix + "landing_page/get-all",
     },
-    resource: {
-      search: prefix + "dm-nguon-von",
+    image: {
+      upload: prefix + "image/upload",
+      viewimage: prefix + "image/view",
     },
-    supplier: {
-      search: prefix + "dm-don-vi-cung-cap",
+    cooperative_basis: {
+      create: prefix + "cooperative_basis/create",
+      delete: prefix + "cooperative_basis/delete",
+      getIndex: prefix + "cooperative_basis/search",
+      search: prefix + "cooperative_basis/search",
+      edit: prefix + "cooperative_basis/update",
+      getDetail: prefix + "cooperative_basis/get-detail",
     },
-    country: {
-      search: prefix + "dm-quoc-gia",
+    menu: {
+      search: prefix + "menu/get-hearder-menu",
     },
-    formType: {
-      search: prefix + "dm-loai-thiet-bi",
+    slider: {
+      search: prefix + "slide-item/get-all",
     },
-    status: {
-      search: prefix + "dm-trang-thai",
-    },
-    file: {
-      uploadImage: prefix + "thiet-bi/anh",
-      uploadFile: prefix + "thiet-bi/tai-lieu",
-    },
-    hospital: {
-      search: prefix + "dm-don-vi",
-      report: prefix + "dm-don-vi/excel",
-    },
-    city: {
-      search: prefix + "dm-tinh-thanh-pho",
-    },
-    commune: {
-      search: prefix + "dm-xa-phuong",
-    },
-    district: {
-      search: prefix + "dm-quan-huyen",
-    },
-    statistical: {
-      status: prefix + "thiet-bi/thong-ke/trang-thai",
-      importHospital: prefix + "thiet-bi/thong-ke/so-so-y-te-nhap",
-      resource: prefix + "thiet-bi/thong-ke/thiet-bi-nguon-von",
-      statusName: prefix + "thiet-bi/thong-ke/thiet-bi-dieu-chuyen",
-    },
-    model: {
-      search: prefix + "dm-model",
-    },
-    organization: {
-      search: prefix + "dm-co-quan-quan-ly",
-    },
-    company: {
-      search: prefix + "dm-cong-ty-ttb",
-    },
+    luotxem: {
+      nguoitruycap: prefix + "user-access-count/get-access",
+      nguoionline: prefix + "user-access-count/load",
+      luottruycap: prefix + "user-access-count/total-count",
+    }
   },
 };

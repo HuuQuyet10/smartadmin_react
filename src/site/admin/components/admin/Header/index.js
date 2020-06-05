@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./style.scss";
 import { connect } from "react-redux";
 import authAction from "@actions/auth";
-import ModalChangePass from "@admin/containers/userinfo/modalChangePass";
-import ModalComment from "@admin/containers/comments";
 function index(props) {
     const [state, _setState] = useState({
         showChangePass: false,
@@ -21,6 +19,10 @@ function index(props) {
         setState({
             showChangePass: true
         })
+    }
+    const onLogoutE = () => {
+        localStorage.clear();
+        window.location.href = '/login';
     }
     const onComments = () => {
         setState({
@@ -1259,7 +1261,7 @@ function index(props) {
                             <span data-i18n="drpdwn.reset_layout" >Thay đổi mật khẩu</span>
                         </a>
                         <a href="#" className="dropdown-item" data-action="app-reset">
-                            <span data-i18n="drpdwn.reset_layout">Đặt lại bố cục</span>
+                            <span data-i18n="drpdwn.reset_layout">Reset Layout</span>
                         </a>
                         <a
                             href="#"
@@ -1267,15 +1269,15 @@ function index(props) {
                             data-toggle="modal"
                             data-target=".js-modal-settings"
                         >
-                            <span data-i18n="drpdwn.settings">Cài đặt</span>
+                            <span data-i18n="drpdwn.settings">Settings</span>
                         </a>
                         <div className="dropdown-divider m-0"></div>
                         <a href="#" className="dropdown-item" data-action="app-fullscreen">
-                            <span data-i18n="drpdwn.fullscreen">Toàn màn hình</span>
+                            <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
                             <i className="float-right text-muted fw-n">F11</i>
                         </a>
                         <a href="#" className="dropdown-item" data-action="app-print">
-                            <span data-i18n="drpdwn.print">In</span>
+                            <span data-i18n="drpdwn.print">Print</span>
                             <i className="float-right text-muted fw-n">Ctrl + P</i>
                         </a>
                         {/* <div className="dropdown-multilevel dropdown-multilevel-left">
@@ -1334,21 +1336,15 @@ function index(props) {
                         <div className="dropdown-divider m-0"></div>
                         <a
                             onClick={() => {
-                                props.onLogout();
+                                onLogoutE();
                             }}
                             className="dropdown-item fw-500 pt-3 pb-3"
                         >
-                            <span data-i18n="drpdwn.page-logout">Đăng xuất</span>
+                            <span data-i18n="drpdwn.page-logout">Logout</span>
                         </a>
                     </div>
                 </div>
             </div>
-            {
-                state.showChangePass ? <ModalChangePass onClose={closeModal} /> : null
-            }
-            {
-                state.showComments ? <ModalComment onClose={closeModal} /> : null
-            }
         </header >
     );
 }

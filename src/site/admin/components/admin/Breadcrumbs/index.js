@@ -1,552 +1,196 @@
-import React from "react";
-import { Link } from "react-router-dom";
-// import { useRouter } from 'next/router'
-import "./style.scss";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 function index(props) {
-  // const router = useRouter();
   const getBreadcrumbs = () => {
     let url = (window.location.pathname || "").toLowerCase();
     let obj = [];
     switch (url) {
       case "/admin":
-      case "/admin/dashboard":
+      case "/admin/quan-ly-tai-khoan":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            url: "/dashboard",
-            name: "Dashboard",
+            url: "/admin/quan-ly-tai-khoan",
+            name: "Tài khoản",
           },
         ];
         break;
-      case "/admin/allocation":
+      case "/admin/quan-ly-tai-khoan/them-moi":
+        obj = [
+          {
+            icon: "fal fa-home mr-1",
+            url: "/admin/quan-ly-tai-khoan",
+            name: "Tài khoản",
+          },
+          {
+            url: "/admin/quan-ly-tai-khoan/them-moi",
+            name: "Thêm mới Tài khoản",
+          },
+        ];
+        break;
+      case "/admin/quan-ly-tin-tuc":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            url: "/allocation",
-            name: "Bản đồ phân bổ",
+            url: "/admin/quan-ly-tin-tuc",
+            name: "Tin tức",
           },
         ];
         break;
-
-      case "/admin/phanquyentaikhoan":
+      case "/admin/quan-ly-tin-tuc/them-moi":
+        obj = [
+          {
+            icon: "fal fa-home mr-1",
+            url: "/admin/quan-ly-tin-tuc",
+            name: "Trang chủ",
+          },
+          {
+            url: "/admin/quan-ly-tin-tuc/them-moi",
+            name: "Thêm mới tin tức",
+          },
+        ];
+        break;
+      case "/admin/quan-ly-dao-tao/chinh-sua/:id":
+        obj = [
+          {
+            icon: "fal fa-home mr-1",
+            url: "/admin/quan-ly-tin-tuc",
+            name: "Trang chủ",
+          },
+          {
+            url: "/admin/quan-ly-dao-tao/chinh-sua/:id",
+            name: "Chỉnh sửa tin tức",
+          },
+        ];
+        break;
+      case "/admin/quan-ly-side/side-item":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            url: "/admin",
-            name: "Phân quyền tài khoản",
+            url: "/admin/quan-ly-side/side-item",
+            name: "Side Item",
           },
         ];
         break;
-      case "/admin/user":
+      case "/admin/quan-ly-side/side-place":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            url: "/admin/user",
-            name: "Quản lý tài khoản",
+            url: "/admin/quan-ly-side/side-place",
+            name: "Side Place",
           },
         ];
         break;
-      case "/admin/user-info":
+      case "/admin/quan-ly-side/side-page":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            url: "/admin/user-info",
-            name: "Thông tin cá nhân",
+            url: "/admin/quan-ly-side/side-page",
+            name: "Side Page",
           },
         ];
         break;
-      case "/admin/user-type":
+      case "/admin/quan-ly-menu":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            url: "/admin/user-type",
-            name: "Quản lý loại tài khoản",
+            url: "/admin/quan-ly-menu",
+            name: "Quản lý menu cấp 1",
           },
         ];
         break;
-      case "/admin/user/create":
+      case "/admin/quan-ly-page":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            url: "/admin/user",
-            name: "Quản lý tài khoản",
-          },
-          {
-            url: "/admin/user/create",
-            name: "Tạo mới",
+            url: "/admin/quan-ly-menu",
+            name: "Quản lý Page",
           },
         ];
         break;
-      case "/admin/name-device":
+      case "/admin/quan-ly-dao-tao":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            name: "Quản lý danh mục",
-          },
-          {
-            url: "/admin/name-device",
-            name: "Danh mục thiết bị",
+            url: "/admin/quan-ly-dao-tao",
+            name: "Quản lý Đào tạo - NCKH",
           },
         ];
         break;
-      case "/admin/model":
+      case "/admin/quan-ly-chuyen-gia":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            name: "Quản lý danh mục",
-          },
-          {
-            url: "/admin/model",
-            name: "Danh mục model",
+            url: "/admin/quan-ly-chuyen-gia",
+            name: "Đội ngũ chuyên gia",
           },
         ];
         break;
-      case "/admin/model/create":
+      case "/admin/quan-ly-langding-page":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            name: "Quản lý danh mục",
-          },
-          {
-            url: "/admin/model",
-            name: "Danh mục model",
-          },
-          {
-            url: "/admin/model/create",
-            name: "Tạo mới ",
+            url: "/admin/quan-ly-langding-page",
+            name: "Quản lý Landing Page",
           },
         ];
         break;
-      case "/admin/status":
+      case "/admin/quan-ly-hop-tac-benh-vien":
         obj = [
           {
             icon: "fal fa-home mr-1",
             url: "/admin",
-            name: "Home",
+            name: "Trang chủ",
           },
           {
-            name: "Quản lý danh mục",
-          },
-          {
-            url: "/admin/status",
-            name: "Danh mục trạng thái",
+            url: "/admin/quan-ly-hop-tac-benh-vien",
+            name: "Quản lý Cơ sở hợp tác",
           },
         ];
-        break;
-      case "/admin/device-type":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            name: "Quản lý danh mục",
-          },
-          {
-            url: "/admin/device-type",
-            name: "Loại thiết bị",
-          },
-        ];
-        break;
-
-      case "/admin/manufacturer":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            name: "Quản lý danh mục",
-          },
-          {
-            url: "/admin/manufacturer",
-            name: "Hãng sản xuất",
-          },
-        ];
-        break;
-      case "/admin/resource":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            name: "Quản lý danh mục",
-          },
-          {
-            url: "/admin/resource",
-            name: "Nguồn vốn",
-          },
-        ];
-        break;
-      case "/admin/unit":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            name: "Quản lý danh mục",
-          },
-          {
-            url: "/admin/unit",
-            name: "Đơn vị tính",
-          },
-        ];
-        break;
-      case "/admin/supplier":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            name: "Công ty trang thiết bị",
-          },
-          {
-            url: "/admin/supplier",
-            name: "Công ty TTB",
-          },
-        ];
-        break;
-      case "/admin/supplier/create":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            name: "Công ty trang thiết bị",
-          },
-          {
-            url: "/admin/supplier",
-            name: "Công ty TTB",
-          },
-          {
-            url: "/admin/supplier/create",
-            name: "Tạo mới",
-          },
-        ];
-        break;
-      case "/admin/company-device":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            name: "Công ty trang thiết bị",
-          },
-          {
-            url: "/admin/company-device",
-            name: "Quản lý thiết bị - Công ty TTB",
-          },
-        ];
-        break;
-      case "/admin/company-device/create":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            name: "Công ty trang thiết bị",
-          },
-          {
-            url: "/admin/company-device",
-            name: "Quản lý thiết bị - Công ty TTB",
-          },
-          {
-            url: "/admin/company-device/create",
-            name: "Tạo mới",
-          },
-        ];
-        break;
-      case "/admin/device":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            url: "/admin/device",
-            name: "Quản lý trang thiết bị",
-          },
-        ];
-        break;
-      case "/admin/device/create":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            url: "/admin/device",
-            name: "Quản lý trang thiết bị",
-          },
-          {
-            url: "/admin/device/create",
-            name: "Tạo mới",
-          },
-        ];
-        break;
-      case "/admin/hospital":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            url: "/admin/hospital",
-            name: "Quản lý cơ sở y tế",
-          },
-        ];
-        break;
-      case "/admin/organization":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            url: "/admin/organization",
-            name: "Cấp cơ quan quản lý",
-          },
-        ];
-        break;
-      case "/admin/hospital/create":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            url: "/admin/hospital",
-            name: "Quản lý cơ sở y tế",
-          },
-          {
-            url: "/admin/hospital/create",
-            name: "Tạo mới",
-          },
-        ];
-        break;
-      case "/admin/guide-company":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            url: "/admin/guide-company",
-            name: "HDSD - Công ty",
-          },
-        ];
-        break;
-      case "/admin/guide-hospital":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            url: "/admin/guide-hospital",
-            name: "HDSD - Cơ sở y tế",
-          },
-        ];
-        break;
-      case "/admin/guide-department":
-        obj = [
-          {
-            icon: "fal fa-home mr-1",
-            url: "/admin",
-            name: "Home",
-          },
-          {
-            url: "/admin/guide-department",
-            name: "HDSD - Sở y tế",
-          },
-        ];
-        break;
-      default:
-        if (url.indexOf("/admin/device/edit") === 0) {
-          obj = [
-            {
-              icon: "fal fa-home mr-1",
-              url: "/admin",
-              name: "Home",
-            },
-            {
-              url: "/admin/device",
-              name: "Quản lý trang thiết bị",
-            },
-            {
-              name: "Chỉnh sửa thiết bị",
-            },
-          ];
-        } else if (url.indexOf("/admin/device/") === 0) {
-          obj = [
-            {
-              icon: "fal fa-home mr-1",
-              url: "/admin",
-              name: "Home",
-            },
-            {
-              url: "/admin/device",
-              name: "Quản lý trang thiết bị",
-            },
-            {
-              name: "Chi tiết thiết bị",
-            },
-          ];
-        } else if (url.indexOf("/admin/company-device/edit") === 0) {
-          obj = [
-            {
-              icon: "fal fa-home mr-1",
-              url: "/admin",
-              name: "Home",
-            },
-            {
-              name: "Công ty trang thiết bị",
-            },
-            {
-              url: "/admin/company-device",
-              name: "Quản lý thiết bị - Công ty TTB",
-            },
-            {
-              name: "Chỉnh sửa thiết bị",
-            },
-          ];
-        } else if (url.indexOf("/admin/company-device/") === 0) {
-          obj = [
-            {
-              icon: "fal fa-home mr-1",
-              url: "/admin",
-              name: "Home",
-            },
-            {
-              name: "Công ty trang thiết bị",
-            },
-            {
-              url: "/admin/company-device",
-              name: "Quản lý thiết bị - Công ty TTB",
-            },
-            {
-              name: "Chi tiết thiết bị",
-            },
-          ];
-        } else if (url.indexOf("/admin/hospital/edit") === 0) {
-          obj = [
-            {
-              icon: "fal fa-home mr-1",
-              url: "/admin",
-              name: "Home",
-            },
-            {
-              url: "/admin/hospital",
-              name: "Quản lý cơ sở y tế",
-            },
-            {
-              name: "Chỉnh sửa cơ sở y tế",
-            },
-          ];
-        } else if (url.indexOf("/admin/supplier/edit") === 0) {
-          obj = [
-            {
-              icon: "fal fa-home mr-1",
-              url: "/admin",
-              name: "Home",
-            },
-            {
-              name: "Công ty trang thiết bị",
-            },
-            {
-              url: "/admin/supplier",
-              name: "Quản lý công ty TTB",
-            },
-            {
-              name: "Chỉnh sửa Công ty TTB",
-            },
-          ];
-        } else if (url.indexOf("/admin/model/edit") === 0) {
-          obj = [
-            {
-              icon: "fal fa-home mr-1",
-              url: "/admin",
-              name: "Home",
-            },
-            {
-              name: "Quản lý danh mục",
-            },
-            {
-              url: "/admin/model",
-              name: "Danh mục model",
-            },
-            {
-              name: "Chỉnh sửa ",
-            },
-          ];
-        }
         break;
     }
     return obj;
   };
-
-  // console.log(window.location.pathname);
   const breadCrumb = getBreadcrumbs();
   return (
     <ol className="breadcrumb bg-info-400">

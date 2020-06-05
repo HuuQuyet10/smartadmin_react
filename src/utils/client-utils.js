@@ -1,22 +1,12 @@
 import axios from "axios";
-// if (typeof window === "undefined") {
-//   global.window = {};
-// }
-// const server_url = "https://dhy3.demo.isofh.vn";
-// const server_url = window.location.origin;
+
 const getServerUrl = () => {
   const domain = global.origin;
   switch (domain) {
-    case 'http://localhost:3000': // test
-      return 'https://dhy3.demo.isofh.vn';
-    case 'http://123.24.206.9:9458': // test 
-      return 'https://dhy3.demo.isofh.vn';
-    case 'http://35.247.166.180:2389': // production 
-      return 'http://35.247.166.180:2181';
-    case 'https://quanlytrangthietbiyte.com': // production 
-      return 'https://api.quanlytrangthietbiyte.com';
-    default:
-      return 'https://dhy3.demo.isofh.vn';
+     case 'http://localhost:3000': //khai báo url
+       return 'http://123.24.206.9:9560'; // trả về api 
+    default: // mặc định
+      return 'http://123.24.206.9:9560'; // chọn api này làm mặc định này làm kết quả trả về cho case trên nếu return trên bị lỗi
   }
 }
 const server_url = getServerUrl();
@@ -99,6 +89,18 @@ export default {
   uploadFile(url, file) {
     const formData = new FormData();
     formData.append("file", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: this.auth,
+        // 'MobileMode': 'vendorPortal'
+      },
+    };
+    return axios.post(url.getServiceUrl(), formData, config);
+  },
+  uploadImage(url, file) {
+    const formData = new FormData();
+    formData.append("image", file);
     const config = {
       headers: {
         "content-type": "multipart/form-data",

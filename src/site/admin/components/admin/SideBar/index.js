@@ -7,226 +7,114 @@ function index(props) {
   const menus = useRef(null);
   const [state, _setState] = useState({
     show: false,
-    // menus: getMenu()
   });
-
-  const setState = (_state) => {
-    _setState((state) => ({
-      ...state,
-      ...(_state || {}),
-    }));
-  };
   const getMenu = () => {
     let allMenus = [
       {
-        userType: ["co_so_y_te", "bo_y_te", "cong_ty", "so_y_te", "vu_ttb"],
-        href: "/admin/dashboard",
+        userType: [],
+        href: "/admin/quan-ly-tai-khoan",
         i18n: "nav.dashboard",
-        name: "Dashboard",
-        icon: "fal fa-game-board-alt",
+        name: "Quản lý tài khoản",
+        icon: "fal fa-users",
         filter: "dashboard tổng quan",
       },
       {
-        userType: ["co_so_y_te", "bo_y_te", "cong_ty", "so_y_te", "vu_ttb"],
-        href: "/admin/allocation",
+        userType: [],
+        href: "/admin/quan-ly-tin-tuc",
         i18n: "nav.dashboard",
-        name: "Bản đồ phân bổ",
-        icon: "fal fa-map-marked-alt",
-        filter: "bản đồ phân bổ allocation",
+        name: "Quản lý tin tức",
+        icon: "fal fa-newspaper",
+        filter: "dashboard tổng quan",
       },
       {
-        userType: ["bo_y_te", "so_y_te", "vu_ttb"],
+        userType: [],
         href: "#",
         i18n: "nav.user",
-        name: "Quản lý tài khoản",
-        icon: "fal fa-users",
+        name: "Quản lý side",
+        icon: "fal fa-list",
         filter: "quan ly tai khoan",
         menus: [
           {
-            href: "/admin/user-type",
-            name: "Quản lý loại tài khoản",
+            href: "/admin/quan-ly-side/side-item",
+            name: "Side item",
             i18n: "nav.user-type",
           },
           {
-            href: "/admin/user",
-            name: "Quản lý tài khoản",
+            href: "/admin/quan-ly-side/side-page",
+            name: "Side page",
+            i18n: "nav.user",
+          },
+          {
+            href: "/admin/quan-ly-side/side-place",
+            name: "Side place",
             i18n: "nav.user",
           },
         ],
       },
       {
-        userType: ["co_so_y_te", "bo_y_te", "so_y_te", "vu_ttb"],
-        // href: "#",
-        href: "/admin/hospital",
-        i18n: "nav.device_management",
-        name: "Quản lý cơ sở y tế",
-        icon: "fal fa-hospital",
-        filter: "quan ly co so y te",
-        // menus: [
-        //   {
-        //     userType: ["co_so_y_te", "bo_y_te"],
-        //     href: "/admin/hospital",
-        //     name: "Cơ sở y tế",
-        //     i18n: "nav.hospital",
-        //   },
-        // ],
-      },
-      {
-        userType: ["bo_y_te", "so_y_te", "vu_ttb"],
-        href: "/admin/organization",
-        name: "Cấp cơ quan quản lý",
-        i18n: "nav.organization",
-        icon: "fal fa-hotel",
-        filter: "organization Cấp cơ quan quản lý",
-      },
-      {
-        userType: ["co_so_y_te", "bo_y_te", "so_y_te", "vu_ttb"],
-        href: "/admin/device",
-        name: "Quản lý trang thiết bị",
-        i18n: "nav.organization",
-        icon: "fal fa-layer-group",
-        filter: "device_management quan ly trang thiet bi",
-      },
-      // {
-      //   userType: ["co_so_y_te", "bo_y_te", "so_y_te", "vu_ttb"],
-      //   href: "#",
-      //   i18n: "nav.device_management",
-      //   name: "Quản lý trang thiết bị",
-      //   icon: "fal fa-layer-group",
-      //   filter: "quan ly trang thiet bi",
-      //   menus: [
-      //     // {
-      //     //   userType: ["co_so_y_te", "bo_y_te"],
-      //     //   href: "/admin/device/create",
-      //     //   name: "Thêm thiết bị",
-      //     //   i18n: "nav.device_add_new",
-      //     // },
-      //     {
-      //       userType: ["co_so_y_te", "bo_y_te", "vu_ttb"],
-      //       href: "/admin/device",
-      //       name: "Danh sách thiết bị",
-      //       i18n: "nav.list_device",
-      //     },
-      //   ],
-      // },
-      {
-        userType: ["bo_y_te", "cong_ty", "vu_ttb"],
-        href: "/admin/supplier",
-        name: "Quản lý công ty TTB",
-        i18n: "nav.company",
-        icon: "fal fa-hotel",
-        filter: "organization Quản lý công ty TTB",
-      },
-      // {
-      //   userType: ["bo_y_te", "cong_ty", "vu_ttb"],
-      //   href: "#",
-      //   i18n: "nav.mgr_category",
-      //   name: "Công ty trang thiết bị",
-      //   icon: "fal fa-hotel",
-      //   menus: [
-      //     {
-      //       userType: ["bo_y_te", "cong_ty"],
-      //       href: "/admin/supplier",
-      //       i18n: "nav.supplier",
-      //       name: "Quản lý công ty TTB",
-      //     },
-      //     {
-      //       userType: ["bo_y_te", "cong_ty"],
-      //       href: "/admin/company-device",
-      //       i18n: "nav.company_device",
-      //       name: "Quản lý thiết bị - Công ty TTB",
-      //     }
-      //   ],
-      // },
-      {
-        userType: ["co_so_y_te", "bo_y_te", "cong_ty", "so_y_te", "vu_ttb"],
-        href: "#",
-        i18n: "nav.mgr_category",
-        name: "Quản lý danh mục",
+        userType: [],
+        href: "/admin/quan-ly-menu",
+        i18n: "nav.dashboard",
+        name: "Quản lý menu",
         icon: "fal fa-list-alt",
-        menus: [
-          {
-            userType: ["co_so_y_te", "bo_y_te", "cong_ty"],
-            href: "/admin/name-device",
-            i18n: "nav.name-device",
-            name: "Danh mục thiết bị",
-          },
-          {
-            userType: ["co_so_y_te", "bo_y_te", "cong_ty"],
-            href: "/admin/device-type",
-            i18n: "nav.device_type",
-            name: "Loại thiết bị",
-          },
-          {
-            userType: ["co_so_y_te", "bo_y_te", "cong_ty"],
-            href: "/admin/manufacturer",
-            i18n: "nav.manufacturer",
-            name: "Hãng sản xuất",
-          },
-          {
-            userType: ["co_so_y_te", "bo_y_te", "cong_ty"],
-            href: "/admin/unit",
-            i18n: "nav.unit",
-            name: "Đơn vị tính",
-          },
-          {
-            userType: ["co_so_y_te", "bo_y_te", "cong_ty"],
-            href: "/admin/status",
-            i18n: "nav.status",
-            name: "Trạng thái",
-          },
-          {
-            userType: ["co_so_y_te", "bo_y_te", "cong_ty"],
-            href: "/admin/model",
-            i18n: "nav.model",
-            name: "Model",
-          },
-          {
-            userType: ["co_so_y_te", "bo_y_te", "cong_ty"],
-            href: "/admin/resource",
-            i18n: "nav.resource",
-            name: "Nguồn vốn",
-          },
-        ],
+        filter: "dashboard tổng quan",
       },
       {
-        userType: ["bo_y_te", "cong_ty", "vu_ttb"],
-        href: "/admin/guide-company",
-        i18n: "nav.guide-company",
-        name: "HDSD - Công ty",
-        icon: "fal fa-book",
-        filter: "guide-company HDSD - Công ty",
+        userType: [],
+        href: "/admin/quan-ly-page",
+        i18n: "nav.dashboard",
+        name: "Quản lý Page",
+        icon: "fal fa-pager",
+        filter: "dashboard tổng quan",
       },
       {
-        userType: ["co_so_y_te", "bo_y_te", "so_y_te", "vu_ttb"],
-        href: "/admin/guide-hospital",
-        i18n: "nav.guide-hospital",
-        name: "HDSD - Cơ sở y tế",
-        icon: "fal fa-book-medical",
-        filter: "guide-hospital HDSD - Cơ sở y tế",
+        userType: [],
+        href: "/admin/quan-ly-dao-tao",
+        i18n: "nav.dashboard",
+        name: "QL Đào tạo - NCKH",
+        icon: "fal fa-shopping-bag",
+        filter: "dashboard tổng quan",
       },
       {
-        userType: ["bo_y_te", "so_y_te", "vu_ttb"],
-        href: "/admin/guide-department",
-        i18n: "nav.guide-department",
-        name: "HDSD - Sở y tế",
-        icon: "fal fa-book-spells",
-        filter: "guide-department HDSD - sở y tế",
+        userType: [],
+        href: "/admin/quan-ly-chuyen-gia",
+        i18n: "nav.dashboard",
+        name: "Quản lý chuyên gia",
+        icon: "fal fa-user-md",
+        filter: "dashboard tổng quan",
       },
-    ];
-    return allMenus.filter((item) => {
-      if (!(item.userType || []).length) return true;
+      {
+        userType: [],
+        href: "/admin/quan-ly-langding-page",
+        i18n: "nav.dashboard",
+        name: "Quản lý Landing Page",
+        icon: "fal fa-copy",
+        filter: "dashboard tổng quan",
+      },
+      {
+        userType: [],
+        href: "/admin/quan-ly-hop-tac-co-so",
+        i18n: "nav.dashboard",
+        name: "QL Hợp tác các BV",
+        icon: "fal fa-handshake-alt",
+        filter: "dashboard tổng quan",
+      },
+    ]
+    return allMenus.filter(item => {
+      if (!(item.userType || []).length)
+        return true;
       for (let i = 0; i < item.userType.length; i++) {
-        if (
-          item.userType[i] ==
-          (props.auth.authorities &&
-            props.auth.authorities.length &&
-            props.auth.authorities[0])
-        ) {
+        if (item.userType[i] == (props.auth.authorities && props.auth.authorities.length && props.auth.authorities[0])) {
           return true;
         }
       }
-    });
+    })
+  }
+  const setState = (_state) => {
+    _setState((state) => ({
+      ...state,
+      ...(_state || {}),
+    }));
   };
   useEffect(() => {
     try {
@@ -235,10 +123,10 @@ function index(props) {
         $("#nav_filter_input"),
         $("#js-primary-nav")
       );
-    } catch (error) {}
+    } catch (error) { }
   });
   useEffect(() => {
-    setState({ menus: getMenu() });
+    setState({ menus: getMenu() })
     if (menus.current) {
       setState({ menus: menus.current });
     }
@@ -250,45 +138,19 @@ function index(props) {
   };
   return (
     <aside className="page-sidebar list-filter-active">
-      <div
-        className="page-logo"
-        style={{ background: "#FFF", padding: 0, height: 66 }}
-      >
+      <div className="page-logo">
         <a
           href="#"
           className={`page-logo-link 
           press-scale-down 
           d-flex align-items-center position-relative`}
-          // data-toggle="modal"
-          // data-target="#modal-shortcut"
-          style={{ padding: "5px 10px", width: "65%" }}
         >
           <img
-            src={require("@images/logo-BYT.png")}
+            src={require("@images/logoBVE.png")}
             alt="iSofH"
-            style={{ maxHeight: 55, maxWidth: "95%" }}
+            style={{ marginTop: 10, maxHeight: 96, maxWidth: "53%", marginLeft: 15 }}
             aria-roledescription="logo"
           />
-          {/* <span className="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
-          <i className="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i> */}
-        </a>
-        <a
-          href="#"
-          className={`page-logo-link 
-          press-scale-down 
-          d-flex align-items-center position-relative`}
-          // data-toggle="modal"
-          // data-target="#modal-shortcut"
-          style={{ padding: 5, width: "35%" }}
-        >
-          <img
-            src={require("@images/logo.png")}
-            alt="iSofH"
-            style={{ maxHeight: 55, maxWidth: "98%" }}
-            aria-roledescription="logo"
-          />
-          {/* <span className="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
-          <i className="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i> */}
         </a>
       </div>
       <nav
@@ -323,19 +185,14 @@ function index(props) {
           <img
             src="/img/demo/avatars/avatar-admin.png"
             className="profile-image rounded-circle"
-            alt={props.auth.full_name}
+            alt={(props.auth || {}).full_name}
           />
           <div className="info-card-text">
             <a href="#" className="d-flex align-items-center text-white">
               <span className="text-truncate text-truncate-sm d-inline-block">
-                {props.auth.full_name}
+                {(props.auth || {}).full_name}
               </span>
             </a>
-            {props.auth.email && (
-              <span className="d-inline-block text-truncate text-truncate-sm">
-                {props.auth.email}
-              </span>
-            )}
           </div>
           <img
             src="/img/card-backgrounds/cover-2-lg.png"
@@ -357,19 +214,9 @@ function index(props) {
           </a>
         </div>
         <ul id="js-nav-menu" className="nav-menu">
-          {state.menus &&
-            state.menus.length &&
-            state.menus.map((item, index) => {
-              // if (item.authorities) {
-              // props.auth.authorities.map(item1 => {
-              //   if (item.authorities == item1) {
-              //     return <ItemMenu key={index} item={item} toggle={toggle} />;
-              //   }
-              // })
-              // } else {
-              return <ItemMenu key={index} item={item} toggle={toggle} />;
-              // }
-            })}
+          {state.menus && state.menus.length && state.menus.map((item, index) => {
+            return <ItemMenu key={index} item={item} toggle={toggle} />;
+          })}
         </ul>
         <div className="filter-message js-filter-message bg-success-600"></div>
       </nav>

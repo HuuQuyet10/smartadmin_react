@@ -1,3 +1,6 @@
+import constants from '@strings'
+import clientUtils from '@utils/client-utils';
+
 const reducer = (state = {
     latlngs: []
 }, action) => {

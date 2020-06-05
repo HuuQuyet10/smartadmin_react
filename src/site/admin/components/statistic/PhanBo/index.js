@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { Select, Form } from "antd";
+import statisticalProvider from "@data-access/statistical-provider";
+import Chart from "chart.js";
+import { Input, Select, Form } from "antd";
 import { Panel } from "@admin/components/admin";
+import useInterval from "@hooks/useInterval";
+import statusProvider from "@data-access/status-provider";
+import cityProvider from "@data-access/city-provider";
+import communeProvider from "@data-access/commune-provider";
+import districtProvider from "@data-access/district-provider";
 import deviceProvider from "@data-access/device-provider";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -10,24 +17,28 @@ import actionDeviceStatus from "@actions/device/status";
 import actionDeviceName from "@actions/device/name";
 import actionLatLng from "@actions/latlng";
 import "./style.scss";
-import images from "@src/resources/images";
-import { Popover } from "antd";
+import snackbar from "@utils/snackbar-utils";
+import { Popover, Button } from 'antd';
 
-import GoogleMapReact from "google-map-react";
+
+import GoogleMapReact from 'google-map-react';
 
 const AnyReactComponent = (props) => {
-  return <div>{props.children}</div>;
+  return <div>
+    {props.children}
+  </div>
 };
 am4core.useTheme(am4themes_animated);
 const { Option } = Select;
 
 function index(props) {
+  const chartRef = useRef(null);
   const [state, _setState] = useState({
     devices: [],
     data: [],
     mucdo: 1,
     trangThaiId: "",
-    zoomLevel: 6,
+    zoomLevel: 6
   });
   const setState = (_state) => {
     _setState((state) => ({
@@ -40,48 +51,38 @@ function index(props) {
       case 1:
         return {
           key: item.tinhThanhPhoId || "",
-          address: item.tinhThanhPho,
-        };
+          address: item.tinhThanhPho
+        }
       case 2:
         if (item.tinhThanhPhoId && item.quanHuyenId)
           return {
             key: item.tinhThanhPhoId + "_" + item.quanHuyenId,
-            address: item.quanHuyen + " - " + item.tinhThanhPho,
-          };
+            address: item.quanHuyen + " - " + item.tinhThanhPho
+          }
         return {
-          key: null,
-        };
+          key: null
+        }
       case 3:
         if (item.tinhThanhPhoId && item.quanHuyenId && item.xaPhuong)
           return {
-            key:
-              item.tinhThanhPhoId +
-              "_" +
-              item.quanHuyenId +
-              "_" +
-              item.xaPhuongId,
-            address:
-              item.xaPhuong +
-              " - " +
-              item.quanHuyen +
-              " - " +
-              item.tinhThanhPho,
-          };
+            key: item.tinhThanhPhoId + "_" + item.quanHuyenId + "_" + item.xaPhuongId,
+            address: item.xaPhuong + " - " + item.quanHuyen + " - " + item.tinhThanhPho
+          }
         return {
-          key: null,
-        };
+          key: null
+        }
       case 4:
         if (item.donViId) {
           return {
             key: item.donViId,
-            address: item.donVi,
-          };
+            address: item.donVi
+          }
         }
         return {
-          key: null,
-        };
+          key: null
+        }
     }
-  };
+  }
   const getSize = (total) => {
     let t = 50;
     switch (state.mucdo) {
@@ -99,52 +100,51 @@ function index(props) {
     }
     let x = parseInt(total / t);
     return x * 8 + 25;
-  };
+  }
   const groupData = (devices) => {
     let _group1 = {};
-    devices.map((item) => {
+    devices.map(item => {
       let mucdo = getMucDo(item);
       if (mucdo.key) {
         if (!_group1[mucdo.key])
           _group1[mucdo.key] = {
             key: mucdo.key,
             address: mucdo.address,
-            devices: [],
+            devices: []
           };
         _group1[mucdo.key].devices.push(item);
       }
-    });
+    })
     let group1 = [];
     for (let key in _group1) {
       group1.push(_group1[key]);
     }
-    props.loadLocation(group1.map((item) => item.address));
+    props.loadLocation(group1.map(item => item.address))
     setState({
-      data: group1,
-    });
-  };
+      data: group1
+    })
+  }
   useEffect(() => {
     props.getAllStatus();
     props.getAllName();
-    deviceProvider.getAllDevice().then((s) => {
-      if (s && s.code === 0) {
+    deviceProvider.getAllDevice().then(s => {
+      if (s.code == 0) {
         setState({
-          devices: s.data,
-        });
+          devices: s.data
+        })
       }
-    });
-  }, []);
+    })
+  }, [])
   useEffect(() => {
     let { deviceName, devices } = state;
 
     let _devices = devices;
     if (deviceName)
-      _devices = devices.filter((item) => item.tenThietBi === deviceName);
+      _devices = devices.filter(item => item.tenThietBi == deviceName);
     if (state.trangThaiId)
-      _devices = _devices.filter(
-        (item) => item.trangThaiId === state.trangThaiId
-      );
+      _devices = _devices.filter(item => item.trangThaiId == state.trangThaiId);
     groupData(_devices);
+
   }, [state.deviceName, state.trangThaiId, state.mucdo, state.devices]);
 
   const renderMarker = (item, latlng) => {
@@ -155,28 +155,17 @@ function index(props) {
     );
     let title = "";
     if (!state.deviceName) {
-      title = "Thông tin thiết bị tại " + item.address;
+      title = "Thông tin thiết bị tại " + item.address
     } else {
-      title = `${state.deviceName} tại ${item.address}`;
+      title = `${state.deviceName} tại ${item.address}`
     }
     let size = getSize(item.devices.length);
-    return (
-      <div style={{ marginTop: 0 - size, marginLeft: -(size / 2) }}>
-        <Popover
-          style={{ width: size, height: size }}
-          content={content}
-          title={title}
-        >
-          <div style={{ width: size, height: size }}>
-            <img
-              style={{ width: size, height: size }}
-              src={require("@images/placeholder2.png")}
-              alt=""
-            />
-          </div>
-        </Popover>
-      </div>
-    );
+    return <div
+      style={{ marginTop: 0 - size, marginLeft: -(size / 2) }}><Popover style={{ width: size, height: size }} content={content} title={title}>
+        <div style={{ width: size, height: size }} >
+          <img style={{ width: size, height: size }} src={require("@images/placeholder2.png")} />
+        </div>
+      </Popover></div>
   };
 
   return (
@@ -185,7 +174,6 @@ function index(props) {
       sortable={true}
       allowClose={false}
       title="BẢN ĐỒ PHÂN BỔ"
-      icon={images.icon.ic_map}
     >
       <div className="chart-status row">
         <div className="detail-left  col-md-3  col-sm-4">
@@ -207,13 +195,14 @@ function index(props) {
             >
               <Option value="">Tất cả</Option>
               {props.list_name.map((item, index) => {
-                return (
-                  <Option key={index} value={item.ten}>
-                    {item.ten}
-                  </Option>
-                );
-              })}
+                return (<Option key={index} value={item.ten}>
+                  {item.ten}
+                </Option>
+                )
+              })
+              }
             </Select>
+
           </Form.Item>
           <Form.Item className="chart-selcect" label="Trạng thái thiết bị">
             <Select
@@ -233,33 +222,34 @@ function index(props) {
             >
               <Option value="">Tất cả</Option>
               {props.list_status.map((item, index) => {
-                return (
-                  <Option key={index} value={item.id}>
-                    {item.ten}
-                  </Option>
-                );
-              })}
+                return (<Option key={index} value={item.id}>
+                  {item.ten}
+                </Option>
+                )
+              })
+              }
             </Select>
+
           </Form.Item>
           <Form.Item className="chart-selcect" label="Mức độ thể hiện dữ liệu">
             <Select
               value={state.mucdo}
               placeholder="Chọn mức độ"
               onChange={(e, i) => {
-                let zoom = "";
+                let zoom = ""
                 if (e === 2) {
-                  zoom = 10;
+                  zoom = 10
                 } else if (e === 3) {
-                  zoom = 12;
+                  zoom = 12
                 } else if (e === 4) {
-                  zoom = 14;
+                  zoom = 14
                 } else {
-                  zoom = 6;
+                  zoom = 6
                 }
                 setState({
                   mucdo: e,
-                  zoomLevel: zoom,
-                });
+                  zoomLevel: zoom
+                })
               }}
               showSearch
               filterOption={(input, option) =>
@@ -278,39 +268,37 @@ function index(props) {
         <div className=" col-sm-8 col-md-9 detail-right">
           <div style={{ height: 800 }}>
             <GoogleMapReact
-              bootstrapURLKeys={{
-                key: "AIzaSyDtctErW2KvdNQaMZ5t6xl7SUGOXhzsKw8",
-              }}
+              bootstrapURLKeys={{ key: 'AIzaSyDtctErW2KvdNQaMZ5t6xl7SUGOXhzsKw8' }}
               defaultCenter={{
                 // lat: 15.8828276,
                 // lng: 105.1381369
                 lat: 16.463713,
-                lng: 107.590866,
+                lng: 107.590866
               }}
               // defaultZoom={6}
               zoom={state.zoomLevel}
               onBoundsChange={(data, zoom) => {
-                let mucdoCheck = "";
+                let mucdoCheck = ""
                 if (zoom >= 14) {
-                  mucdoCheck = 4;
+                  mucdoCheck = 4
                 } else if (12 <= zoom && zoom < 14) {
-                  mucdoCheck = 3;
+                  mucdoCheck = 3
                 } else if (10 <= zoom && zoom < 12) {
-                  mucdoCheck = 2;
+                  mucdoCheck = 2
                 } else {
-                  mucdoCheck = 1;
+                  mucdoCheck = 1
                 }
                 setState({
-                  mucdo: mucdoCheck,
-                });
+                  mucdo: mucdoCheck
+                })
               }}
             >
-              {state.data.map((item, index) => {
-                if (props.latlngs[item.address]) {
-                  let latlng = props.latlngs[item.address];
+              {
+                state.data.map((item, index) => {
+                  if (props.latlngs[item.address]) {
+                    let latlng = props.latlngs[item.address];
 
-                  return (
-                    <AnyReactComponent
+                    return <AnyReactComponent
                       key={index}
                       lat={latlng.lat}
                       lng={latlng.lng}
@@ -318,26 +306,25 @@ function index(props) {
                     >
                       {renderMarker(item, latlng)}
                     </AnyReactComponent>
-                  );
-                }
-              })}
-              <AnyReactComponent lat={16.363628} lng={112.459828}>
-                <div style={{ display: "flex", width: 180 }}>
-                  <img
-                    style={{ width: 25, height: "auto", paddingRight: 5 }}
-                    src={require("@images/logoVn.png")}
-                    alt=""
-                  />
+                  }
+
+                })
+              }
+              <AnyReactComponent
+                lat={16.363628}
+                lng={112.459828}
+              >
+                <div style={{ display: "flex", width: 180 }} >
+                  <img style={{ width: 25, height: "auto", paddingRight: 5 }} src={require("@images/logoVn.png")} />
                   <span style={{ color: "#000" }}>Quần đảo Hoàng Sa</span>
                 </div>
               </AnyReactComponent>
-              <AnyReactComponent lat={10.497012} lng={115.856484}>
-                <div style={{ display: "flex", width: 180 }}>
-                  <img
-                    style={{ width: 25, height: "auto", paddingRight: 5 }}
-                    src={require("@images/logoVn.png")}
-                    alt=""
-                  />
+              <AnyReactComponent
+                lat={10.497012}
+                lng={115.856484}
+              >
+                <div style={{ display: "flex", width: 180 }} >
+                  <img style={{ width: 25, height: "auto", paddingRight: 5 }} src={require("@images/logoVn.png")} />
                   <span style={{ color: "#000" }}>Quần đảo Trường Sa</span>
                 </div>
               </AnyReactComponent>
@@ -349,17 +336,15 @@ function index(props) {
   );
 }
 
-export default connect(
-  (state) => {
-    return {
-      list_status: state.device_status.list_status || [],
-      list_name: state.device_name.list_name || [],
-      latlngs: state.latlng.latlngs || {},
-    };
-  },
-  {
-    getAllStatus: actionDeviceStatus.getAllStatus,
-    getAllName: actionDeviceName.getAllName,
-    loadLocation: actionLatLng.loadLocation,
+
+export default connect(state => {
+  return {
+    list_status: state.device_status.list_status || [],
+    list_name: state.device_name.list_name || [],
+    latlngs: state.latlng.latlngs || {}
   }
-)(index);
+}, {
+  getAllStatus: actionDeviceStatus.getAllStatus,
+  getAllName: actionDeviceName.getAllName,
+  loadLocation: actionLatLng.loadLocation
+})(index);

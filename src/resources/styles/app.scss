@@ -20,13 +20,8 @@ strong {
   font-family: Muli, "Source Sans Pro" !important;
 }
 
-::-webkit-scrollbar-track {
-  background: #dedede;
-  border-radius: 10px;
-}
 ::-webkit-scrollbar-thumb {
-  // background: #2196f3;
-  background: #2c4897;
+  background: #2196f3;
   border-radius: 10px;
 }
 ::-webkit-scrollbar {
@@ -56,16 +51,7 @@ strong {
     width: 100%;
   }
 }
-.btn-delete {
-  background-color: #d30126 !important;
-  border-color: #d30126 !important;
-  color: #fff !important;
-}
-.btn-edit {
-  background-color: #2c4897 !important;
-  border-color: #2c4897 !important;
-  color: #fff !important;
-}
+
 .footer {
   display: flex;
   margin-top: 10px;
@@ -75,36 +61,10 @@ strong {
   font-size: 18px;
   text-transform: uppercase;
 }
-.ant-form-item {
-  .ant-form-item-label {
-    label {
+.ant-form-item{
+  .ant-form-item-label{
+    label{
       font-weight: bold;
-      color: #2c4897;
-    }
-  }
-}
-.ant-modal {
-  .ant-modal-content {
-    .ant-modal-header {
-      .ant-modal-title {
-        font-weight: bold;
-        font-size: 24px;
-        line-height: 28px;
-        text-align: center;
-        text-transform: uppercase;
-        color: #2c4897;
-      }
-    }
-    .ant-modal-footer {
-      .ant-btn-danger {
-        background: #d30126;
-        padding: 5px 20px;
-      }
-      .ant-btn-primary {
-        background: #2c4897;
-        color: #fff;
-        padding: 5px 20px;
-      }
     }
   }
 }

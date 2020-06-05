@@ -1,5 +1,6 @@
 import constants from "@strings";
 import snackbar from "@utils/snackbar-utils";
+import stringUtils from "mainam-react-native-string-utils";
 import clientUtils from "@utils/client-utils";
 import userProvider from "@data-access/user-provider";
 
@@ -36,7 +37,6 @@ function onLogin(username, password) {
         })
         .catch((e) => {
           reject(e);
-          // console.log(e);
         });
     });
   };

@@ -1,6 +1,5 @@
 .page-sidebar {
   display: flex;
-  background: #392c85;
   .primary-nav {
     overflow: hidden !important;
     // padding-right: 4px;
@@ -30,17 +29,6 @@
     }
     ul {
       display: block !important;
-    }
-  }
-  .nav-footer {
-    background: #392c85;
-  }
-  .primary-nav {
-    .position-relative {
-      .form-control {
-        background: #fff;
-        color: #000;
-      }
     }
   }
 }

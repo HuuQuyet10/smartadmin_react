@@ -1,46 +1,34 @@
 export default {
-  listStatus: [
+  listNoibat: [
     {
       id: 1,
-      name: 'Đang sử dụng'
+      name: 'Yes'
     },
     {
       id: 2,
-      name: 'Chưa sử dụng'
+      name: 'No'
+    }
+  ],
+  listTintuc: [
+    {
+      id: 1,
+      name: 'Tin tức sự kiện'
+    },
+    {
+      id: 2,
+      name: 'Video'
     },
     {
       id: 3,
-      name: 'Đã hỏng'
+      name: 'Y học thường thức'
     },
     {
       id: 4,
-      name: 'Chờ kiểm tra'
+      name: 'ý kiến khách hàng'
     },
     {
       id: 5,
-      name: 'Đang sửa chữa'
-    }
-  ],
-  listTypeHospital: [
-    {
-      id: "BENH_VIEN",
-      value: 10,
-      name: 'Bệnh viện'
-    },
-    {
-      id: "PHONG_KHAM",
-      value: 20,
-      name: 'Phòng khám'
-    },
-    {
-      id: "TRUNG_TAM_Y_TE",
-      value: 30,
-      name: 'Trung tâm y tế'
-    },
-    {
-      id: "KHAC",
-      value: 40,
-      name: 'Khác'
+      name: 'Góc từ thiện'
     }
   ],
   listTypeCompany: [

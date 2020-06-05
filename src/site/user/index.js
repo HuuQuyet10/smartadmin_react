@@ -23,6 +23,13 @@ export default function index(props) {
                 loader: () => import('@user/containers/News'),
                 loading: Loading,
             })
+        },
+        {
+            path: ["/trang-chu"],
+            component: Loadable({
+                loader: () => import('@user/containers/Trangchu'),
+                loading: Loading,
+            })
         }
     ]
     return (
